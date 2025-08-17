@@ -79,21 +79,10 @@ async function handler(ctx) {
 
     const data = (await cache.tryGet(`picuki:${type}:${id}`, async () => {
         let response;
-        try {
-            response = await ofetch(profileUrl, {
-                headers: {
-                    'User-Agent': config.trueUA,
-                },
-            });
-        } catch (error) {
-            if (error.status === 403) {
-                const browser = await puppeteer();
-                response = await puppeteerGet(profileUrl, browser);
-                await browser.close();
-            } else {
-                throw new NotFoundError(error.message);
-            }
-        }
+        
+        const browser = await puppeteer();
+        response = await puppeteerGet(profileUrl, browser);
+        await browser.close();
 
         const $ = load(response);
 
