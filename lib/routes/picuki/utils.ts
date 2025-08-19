@@ -9,7 +9,7 @@ const puppeteerGet = async (url, browser) => {
         waitUntil: 'domcontentloaded',
     });
 
-    await page.waitForSelector('.content');
+    await page.waitForSelector('.posts-video');
 
     const html = await page.content();
     await page.close();
