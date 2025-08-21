@@ -9,6 +9,7 @@ const puppeteerGet = async (url, browser) => {
         waitUntil: 'domcontentloaded',
     });
 
+    await page.waitForNetworkIdle({idleTime: 5000});
     await page.waitForSelector('.posts-video');
 
     const html = await page.content();
