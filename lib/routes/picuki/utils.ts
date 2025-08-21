@@ -6,11 +6,10 @@ const puppeteerGet = async (url, browser) => {
         expectResourceTypes.has(request.resourceType()) ? request.continue() : request.abort();
     });
     await page.goto(url, {
-        waitUntil: 'domcontentloaded',
+        waitUntil: 'networkidle0',
     });
 
-    await page.waitForNetworkIdle({idleTime: 5000});
-    await page.waitForSelector('.posts-video');
+    await page.waitForSelector('.content');
 
     const html = await page.content();
     await page.close();
